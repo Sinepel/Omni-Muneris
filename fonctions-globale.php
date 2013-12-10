@@ -2,7 +2,7 @@
 /*
   Plugin Name: Omni Muneris
   Plugin URL: http://constantin-blog.eu
-  Description: Ajoute des fonctions utiles et inclassables    Version: 2.0
+  Description: Ajoute des fonctions utiles et inclassables    Version: 1.0
   Author: <a href="http://constantin-blog.eu" target="_blank">Constantin Boulanger</a>
   Author URL: http://constantin-blog.eu
 */
