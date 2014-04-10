@@ -293,32 +293,18 @@ function good_bye_howdy( $wp_admin_bar )
 
 if(get_option('feature_obligatoire') ==1)
 {
-	add_action('save_post', 'wpds_check_thumbnail');
-	add_action('admin_notices', 'wpds_thumbnail_error');
-	function wpds_check_thumbnail($post_id) {
-	    // change to any custom post type
-	    if(get_post_type($post_id) != 'post')
-		return;
-	    if ( !has_post_thumbnail( $post_id ) ) {
-		// set a transient to show the users an admin message
-		set_transient( "has_post_thumbnail", "no" );
-		// unhook this function so it doesn't loop infinitely
-		remove_action('save_post', 'wpds_check_thumbnail');
-		// update the post set it to draft
-		wp_update_post(array('ID' => $post_id, 'post_status' => 'draft'));
-		add_action('save_post', 'wpds_check_thumbnail');
-	    } else {
-		delete_transient( "has_post_thumbnail" );
-	    }
-	}
-	function wpds_thumbnail_error()
-	{
-	    // check if the transient is set, and display the error message
-	    if ( get_transient( "has_post_thumbnail" ) == "no" ) {
-		echo "<div id='message' class='error'><p><strong>Vous devez choisir une image à la une avant de publier l'article</strong></p></div>";
-		delete_transient( "has_post_thumbnail" );
-	    }
-	}
+	function color_css_post_status() {
+		?>
+		<style>
+		.status-draft{background: #FFFF99 !important;}
+		.status-future{background: #CCFF99 !important;}
+		.status-pending{background: #87C5D6 !important;}
+		.status-private{background:#FFCC99 !important;}
+		.status-publish{}
+		</style>
+		<?php
+    }
+    add_action('admin_print_styles-edit.php','color_css_post_status');
 }
 
 if(get_option('colorArticle') ==1)
